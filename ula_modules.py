@@ -99,6 +99,24 @@ def adder(x, y, soma, carry):
         carry: Carry de saida mais significativo.
     """
     
+    n = len(x)
+    faList = [None for _ in range(n)]
+    c = [Signal(bool(0)) for _ in range(n + 1)]
+    c[0] = Signal(bool(0))
+
+    for i in range(n):
+        faList[i] = fullAdder(
+            a=x[i],
+            b=y[i],
+            c=c[i],
+            soma=soma[i],
+            carry=c[i+1]
+        )
+
+    @always_comb
+    def comb():
+        carry.next = c[n]
+
     return instances()
 
 
@@ -115,8 +133,12 @@ def addervb(x, y, soma, carry):
         soma: Vetor de saida.
         carry: Carry de saida.
     """
+    n = len(x)
+
     @always_comb
     def comb():
-        pass
+        total = int(x) + int(y)
+        soma.next = total & ((1 << n) - 1)
+        carry.next = (total >> n) & 1
 
-    return instances()
+    return comb
