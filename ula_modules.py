@@ -67,6 +67,20 @@ def adder2bits(x, y, soma, carry):
         soma: Vetor de saida de 2 bits.
         carry: Carry de saida.
     """
+    c0 = Signal(bool(0))
+    ha = halfAdder(
+        a=x[0],
+        b=y[0],
+        soma=soma[0],
+        carry=c0
+    )
+    fa = fullAdder(
+        a=x[1],
+        b=y[1],
+        c=c0,
+        soma=soma[1],
+        carry=carry
+    )
 
     return instances()
 
