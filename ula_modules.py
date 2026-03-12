@@ -26,7 +26,10 @@ def halfAdder(a, b, soma, carry):
     """
     @always_comb
     def comb():
-        pass
+
+        soma.next = a ^ b
+        carry.next = a & b 
+        
 
     return instances()
 
@@ -44,6 +47,8 @@ def fullAdder(a, b, c, soma, carry):
     """
     @always_comb
     def comb():
+        soma.next = (c)^(a^b)
+        carry.next = (c&(a^b) or (a & b ))
         pass
 
     return instances()
@@ -62,6 +67,7 @@ def adder2bits(x, y, soma, carry):
         soma: Vetor de saida de 2 bits.
         carry: Carry de saida.
     """
+
     return instances()
 
 
@@ -78,6 +84,7 @@ def adder(x, y, soma, carry):
         soma: Vetor de saida com mesma largura de x/y.
         carry: Carry de saida mais significativo.
     """
+    
     return instances()
 
 
